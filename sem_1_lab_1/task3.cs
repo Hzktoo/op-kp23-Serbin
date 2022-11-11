@@ -1,5 +1,5 @@
 ﻿using System;
-namespace task2
+namespace task3
 {
     class Programm
     {
@@ -15,9 +15,22 @@ namespace task2
             n=12; x=14
             result: res1=479001600; res2=344068096
             */
-            int n, x, res1, res2;
-            Console.WriteLine(res1);
-            Console.WriteLine(res2);
+            Console.WriteLine("Enter a number n");
+            int n = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("Enter a number x");
+            int x = Convert.ToInt32(Console.ReadLine()); 
+            int res1 = 1;
+            int res2 = 1;
+            for (int i = 1; n >= i; ++i)
+            {
+                res1 = res1 * i;
+            }
+            Console.WriteLine("factorial of number " + n + " is " + res1);
+            for (int i = 1; i <= n; i++)
+            {
+                res2 *= x;
+            }
+            Console.WriteLine("The number " + x + " rased to the power "+ n + " is " + res2);
         }
     }
 }
