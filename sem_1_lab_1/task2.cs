@@ -18,8 +18,25 @@ namespace task2
          result: number n is prime.
          */
             int n;
-            Console.WriteLine("number n is prime");
-            Console.WriteLine("number n is not prime");
+            Console.WriteLine("Enter the number n:");
+            n = Convert.ToInt32(Console.ReadLine());
+            if (n > 1)
+            {
+                for (int i = 2; i < n; i++)
+                {
+                    if (n % i == 0)
+                    {
+                        Console.WriteLine("number n is not prime");
+                        return;
+                    }
+            
+                }
+                Console.WriteLine("number n is prime");
+            }
+            else
+            {
+                Console.WriteLine("number n is not prime");
+            }
         }
     }
 }
