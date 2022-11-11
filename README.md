@@ -1,2 +1,1 @@
-# op-kp23-Serbin
-Repository, which contains assignments for Basics of Programming
+Репозиторій студента Сербіна Артема групи КП-23 для зберігання лабораторних робіт з дисципліни “ОП”
