@@ -15,8 +15,31 @@ namespace task1
         x0=109; xk=1; k=54
         result: y0=1295030.754318801; yk=27.801649381175796
         */
-            double x0, xk, k, a, b, y;
-            Console.WriteLine(y);
+            Console.WriteLine("Enter x0");
+            double x0 = Convert.ToDouble(Console.ReadLine());
+            Console.WriteLine("Enter xk");
+            double xk = Convert.ToDouble(Console.ReadLine());
+            double a = 1.35, b = -6.25;
+            double y;
+            Console.WriteLine("Enter the number of intermediate values from x0 to xk");
+            double k = Convert.ToDouble(Console.ReadLine());
+            double dx = Math.Abs((xk - x0)) / ((k+2) - 1);
+            if (x0 < xk)
+            {
+                for (double i = x0; i <= xk; i += dx)
+                {
+                    y = a + Math.Pow(i, 3) + Math.Pow(Math.Cos(Math.Pow(i, 3) - b), 2);
+                    Console.WriteLine("x = "+ i + " y = " + y);
+                }
+            }
+            else if (x0 > xk)
+            {
+                for (double i = x0; i >= xk; i -= dx)
+                {
+                    y = a + Math.Pow(i, 3) + Math.Pow(Math.Cos(Math.Pow(i, 3) - b), 2);
+                    Console.WriteLine("x = " + i + " y = " + y);
+                }
             }
         }
     }
+}
