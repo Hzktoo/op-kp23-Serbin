@@ -19,11 +19,54 @@ namespace task4
          x=5; a=2
          result: res=-0.9589242746631385
          */
-         
-            double x;
-            int a;
-            double res;
-            Console.WriteLine(res);
+            Console.Write("Enter x: ");
+            double x = Convert.ToDouble(Console.ReadLine());
+            Console.Write("Enter a: ");
+            int a = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine(Math.Sin(x));
+            double res = 0;
+            double x1 = x;
+            if (x > Math.PI)
+            {
+                while (x > Math.PI)
+                    x -= Math.PI;
+            }
+            else if (x < -Math.PI)
+            {
+                while (x < -Math.PI)
+
+                    x += Math.PI;
+            }
+            if (x1 > 2 * Math.PI)
+            {
+                while (x1 > 2 * Math.PI)
+                    x1 -= 2 * Math.PI;
+
+            }
+            else if (x1 < -2 * Math.PI)
+            {
+                while (x1 < -2 * Math.PI)
+
+                    x1 += 2 * Math.PI;
+            }
+            for (double i = 0; i <= a; i++)
+            {
+                double f = 1;
+                for (double i1 = 2; i1 <= 2 * i + 1; i1++)
+                {
+                    f *= i1;
+                }
+                res += Math.Pow(-1, i) * (Math.Pow(x, 2 * i + 1)) / (f);
+            }
+            if (0 <= x1 && x1 <= Math.PI && res < 0)
+            {
+                res = -1 * res;
+            }
+            else if (x1 < 0 || x1 > Math.PI)
+            {
+                res = -1 * res;
+            }
+            Console.WriteLine("Sin(x) = " + res);
         }
     }
 }
