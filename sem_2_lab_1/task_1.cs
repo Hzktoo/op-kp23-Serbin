@@ -5,6 +5,11 @@ namespace Task1
 {
     class Program
     {
+        /*test scenarioses
+     Input: -
+     Output: "First line"
+    "Second Line"
+     */
         static void Main(string[] args)
         {
             string folder = "D:\\KPI\\Programming\\";
