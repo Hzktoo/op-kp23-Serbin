@@ -21,12 +21,22 @@ namespace Task1
         {
             folder += fileName;
             StreamWriter writedline = new StreamWriter(folder);
+            writedline.WriteLine("First line");
+            writedline.WriteLine("Second line");
+            writedline.Close();
         }
         static void LoadTextFromFile(string folder, string fileName)
         {
             folder += fileName;
             string line;
             StreamReader writedline = new StreamReader(folder);
+            line = writedline.ReadLine();
+            while (line != null)
+            {
+                Console.WriteLine(line);
+                line = writedline.ReadLine();
+            }
+            writedline.Close();
         }
     }
 }
