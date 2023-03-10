@@ -23,11 +23,12 @@ class Program
     Output:
     computer: 4
      */
-    static void Main()
+static void Main()
     {
         string filePath = @"D:\KPI\Programming\calculating.txt";
         Dictionary<string, int> wordCounts = CountWordsInFile(filePath);
         PrintWordCounts(wordCounts);
+
         Console.ReadLine();
     }
     static Dictionary<string, int> CountWordsInFile(string filePath)
@@ -37,10 +38,25 @@ class Program
                                            StringSplitOptions.RemoveEmptyEntries);
         Dictionary<string, int> wordCounts = new Dictionary<string, int>();
 
+        foreach (string word in words)
+        {
+            if (wordCounts.ContainsKey(word))
+            {
+                wordCounts[word]++;
+            }
+            else
+            {
+                wordCounts[word] = 1;
+            }
+        }
+
         return wordCounts;
     }
     static void PrintWordCounts(Dictionary<string, int> wordCounts)
     {
- 
+        foreach (KeyValuePair<string, int> pair in wordCounts.OrderBy(x => x.Key))
+        {
+            Console.WriteLine("{0}: {1}", pair.Key, pair.Value);
+        }
     }
 }
