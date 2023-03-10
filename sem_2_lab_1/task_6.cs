@@ -56,16 +56,71 @@ namespace Task6
         {
             List<string> students = new List<string>();
             string line;
+            try
+            {
+                StreamReader sr = new StreamReader(path);
+                line = sr.ReadLine();
+
+                while (line != null)
+                {
+                    students.Add(line);
+                    line = sr.ReadLine();
+                }
+
+                sr.Close();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Ecxeption" + ex.Message);
+            }
+
             return students;
         }
         static void WriteBinaryFile(string binaryFileName, List<string> list)
         {
-            writer.Write(list[i]);
+            using (var stream = File.Open(binaryFileName, FileMode.Create))
+            {
+                using (var writer = new BinaryWriter(stream, Encoding.UTF8, false))
+                {
+                    for (int i = 0; i < list.Count; i++)
+                    {
+                        writer.Write(list[i]);
+                    }
+                }
+            }
         }
         static void FindExcellentStudents(string studentsFileName, string excellentStudentsFileName, List<string> students)
         {
             string str;
             List<string> excellentStudents = new List<string>();
+
+            if (File.Exists(studentsFileName))
+            {
+                using (var stream = File.Open(studentsFileName, FileMode.Open))
+                {
+                    using (var reader = new BinaryReader(stream, Encoding.UTF8, false))
+                    {
+                        for (int i = 0; i < students.Count; i++)
+                        {
+                            string student = reader.ReadString();
+                            string[] studentInfo = student.Split(';');
+
+                            if (int.Parse(studentInfo[^1]) >= 95)
+                                excellentStudents.Add(student);
+                        }
+                    }
+                }
+            }
+            using (var stream = File.Open(excellentStudentsFileName, FileMode.Create))
+            {
+                using (var writer = new BinaryWriter(stream, Encoding.UTF8, false))
+                {
+                    for (int i = 0; i < excellentStudents.Count; i++)
+                    {
+                        writer.Write(excellentStudents[i]);
+                    }
+                }
+            }
         }
     }
 }
