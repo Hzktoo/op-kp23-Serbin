@@ -40,31 +40,92 @@ namespace Task4
      Output:
      There is no bad students
      */
-        static void Main(string[] args)
+static void Main(string[] args)
         {
             const string PATH = "D:\\KPI\\students.csv";
             List<string> students = ReadCSVFile(PATH);
             List<string> badStudents = SearchBadStudents(students);
+            if (badStudents.Count == 0)
+            {
+                Console.WriteLine("There are no bad students!");
+            }
+            else
+            {
+                foreach (var badStudent in badStudents)
+                {
+                    Console.WriteLine(badStudent);
+                }
+            }
         }
         static List<string> SplitLine(string line, char spliter)
         {
             List<string> numbers = new List<string>();
             int step = 0;
             string number = "";
+            while (step < line.Length)
+            {
+                if (line[step] == spliter)
+                {
+                    numbers.Add(number);
+                    number = "";
+                    step++;
+                }
+                number += line[step];
+                step++;
+            }
+            numbers.Add(number);
             return numbers;
         }
-
         static List<string> ReadCSVFile(string path)
         {
             List<string> strings = new List<string>();
             string line;
+            try
+            {
+                StreamReader sr = new StreamReader(path);
+                line = sr.ReadLine();
+
+                while (line != null)
+                {
+                    strings.Add(line);
+                    line = sr.ReadLine();
+                }
+
+                sr.Close();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Exception" + ex.Message);
+            }
+
             return strings;
         }
         static List<string> SearchBadStudents(List<string> students)
         {
             List<string> badStudents = new List<string>();
+            for (int i = 0; i < students.Count; i++)
+            {
+                List<string> studentInfo = SplitLine(students[i], ';');
+                
+                if (int.Parse(studentInfo[^1]) < 60)
+                {
+                    string temp = "";
+                    for (int j = 0; j < studentInfo.Count; j++)
+                    {
+                        if (j != studentInfo.Count - 1)
+                        {
+                            temp += studentInfo[j] + ", ";
+                        }
+                        else
+                        {
+                            temp += studentInfo[j];
+                        }
+                    }
+                    badStudents.Add(temp);
+                }
+            }
             return badStudents;
-        }
+        }    
 
 
     }
