@@ -5,6 +5,24 @@ using System.Linq;
 
 class Program
 {
+        /*
+     Test scenariouses:
+    Test 1:
+    Input:
+    why yes why no let's do this
+    Output: 
+    do: 1
+    let's: 1
+    no: 1
+    this: 1
+    why: 2
+    yes: 1;
+    Test 2: 
+    Input:
+    computer computer computer computer
+    Output:
+    computer: 4
+     */
     static void Main()
     {
         string filePath = @"D:\KPI\Programming\calculating.txt";
