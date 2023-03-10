@@ -18,12 +18,36 @@ class Program
     */
     static void Main(string[] args)
     {
-        string input;
+         Console.WriteLine("Enter 15 real numbers separated by spaces:");
+        string input = Console.ReadLine();
         string[] numbers = input.Split(' ');
+        if (numbers.Length != 15)
+        {
+            Console.WriteLine("Error: you must enter exactly 15 numbers.");
+            Console.ReadLine();
+            return;
+        }
         string filePath = @"D:\KPI\Programming\random_numbers.txt";
         StreamWriter writer = new StreamWriter(filePath);
+        foreach (string number in numbers)
+        {
+            writer.Write(number + " ");
+        }
+        writer.Close();
         double maxNumber = double.MinValue;
+        foreach (string number in numbers)
+        {
+            double parsedNumber = double.Parse(number);
+            if (parsedNumber > maxNumber)
+            {
+                maxNumber = parsedNumber;
+            }
+        }
         string maxFilePath = @"D:\KPI\Programming\max.txt";
         StreamWriter maxWriter = new StreamWriter(maxFilePath);
+        maxWriter.Write(maxNumber.ToString());
+        maxWriter.Close();
+        Console.WriteLine("Numbers and maximum number written to files successfully.");
+        Console.ReadLine();
     }
 }
