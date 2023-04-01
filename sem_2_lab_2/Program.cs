@@ -4,10 +4,25 @@ namespace SalaryManagementSystem
 {
     class Program
     {
+        /*
+         Test scenariouses
+        Test 1:
+        Input: 2; 1; Artem; 1000; 0,15; 2; Bogdan; 1200; 0,15
+        Output: Total amount salary: 2200 UAH;
+        Total amount witheld: 330 UAH;
+        Total amount paid: 1870 UAH;
+        Test 2: 
+        Input: 3; 1; Dmytro; 13000; 0,2; 2; Vasyliy; 12500; 0,18; 3; Genry; 14200; 0,22; 
+        Output: Total amount salary: 39700 UAH;
+        Total amount witheld: 7974 UAH;
+        Total amount paid: 31726 UAH;
+        Test 3:
+        Input: 2; 1; 200; 10000; fff;
+        Output: Invalid input;
+         */
         static void Main(string[] args)
         {
             Console.WriteLine("Welcome to the Salary Management System!\n");
-
             Console.Write("Enter the number of employees: ");
             int numEmployees = Convert.ToInt32(Console.ReadLine());
             Employee[] employees = new Employee[numEmployees];
@@ -19,19 +34,16 @@ namespace SalaryManagementSystem
             int result = 0;
             return result;
         }
-
         static double GetDoubleFromUserInput()
         {
             double result = 0;
             return result;
         }
-
         static string GetStringFromUserInput()
         {
             string result = "starting";
             return result;
         }
-
         static bool IsAllLetters(string input)
         {
             return true;
