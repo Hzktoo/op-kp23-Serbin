@@ -22,49 +22,111 @@ namespace SalaryManagementSystem
          */
         static void Main(string[] args)
         {
-            Console.WriteLine("Welcome to the Salary Management System!\n");
+            Console.WriteLine("Salary Management System\n");
+
             Console.Write("Enter the number of employees: ");
-            int numEmployees = Convert.ToInt32(Console.ReadLine());
-            Employee[] employees = new Employee[numEmployees];
+            int numOfEmployees = GetIntFromUserInput();
+
+            Employee[] employees = new Employee[numOfEmployees];
+
+            for (int i = 0; i < numOfEmployees; i++)
+            {
+                Console.WriteLine($"\nEnter details for employee {i + 1}");
+
+                Console.Write("Employee number: ");
+                int id = GetIntFromUserInput();
+
+                Console.Write("Employee name: ");
+                string name = GetStringFromUserInput();
+
+                Console.Write("Salary: ");
+                double salary = GetDoubleFromUserInput();
+
+                Console.Write("Deductions: ");
+                double deductions = GetDoubleFromUserInput();
+
+                Employee employee = new Employee(id, name, salary, deductions);
+                employees[i] = employee;
+            }
+
             Console.WriteLine("\nSalary Details:\n");
-            Console.WriteLine("\nSummary:\n"); 
+
+            foreach (Employee employee in employees)
+            {
+                Console.WriteLine($"Employee ID: {employee.Number}");
+                Console.WriteLine($"Employee name: {employee.Name}");
+                Console.WriteLine($"Salary: {employee.Salary} UAH");
+                Console.WriteLine($"Deductions: {employee.Deductions}");
+                Console.WriteLine($"Amount withheld: {employee.Withheld()} UAH");
+                Console.WriteLine($"Amount paid: {employee.Paid()} UAH");
+                Console.WriteLine();
+            }
+            Console.WriteLine("\nSummary:\n");
+            Console.WriteLine($"Total amount salary: {Employee.TotalSalary(employees)} UAH");
+            Console.WriteLine($"Total amount withheld: {Employee.TotalWithheld(employees)} UAH");
+            Console.WriteLine($"Total amount paid: {Employee.TotalPaid(employees)} UAH");
+
+            Console.ReadLine();
+
         }
         static int GetIntFromUserInput()
         {
-            int result = 0;
+            int result;
+            while (!int.TryParse(Console.ReadLine(), out result))
+            {
+                Console.WriteLine("Invalid input. Please enter a valid integer.");
+            }
             return result;
         }
+
         static double GetDoubleFromUserInput()
         {
-            double result = 0;
+            double result;
+            while (!double.TryParse(Console.ReadLine(), out result))
+            {
+                Console.WriteLine("Invalid input. Please enter a valid number.");
+            }
             return result;
         }
+
         static string GetStringFromUserInput()
         {
-            string result = "starting";
+            string result;
+            while (string.IsNullOrWhiteSpace(result = Console.ReadLine()) || !IsAllLetters(result))
+            {
+                Console.WriteLine("Invalid input. Please enter a valid name.");
+            }
             return result;
         }
+
         static bool IsAllLetters(string input)
         {
+            foreach (char c in input)
+            {
+                if (!char.IsLetter(c))
+                {
+                    return false;
+                }
+            }
             return true;
         }
     }
     class Employee
     {
-        private int _id;
+        private int _number;
         private string _name;
         private double _salary;
         private double _deductions;
-        public Employee(int id, string name, double salary, double deductions)
+        public Employee(int number, string name, double salary, double deductions)
         {
-            _id = id;
+            _number = number;
             _name = name;
             _salary = salary;
             _deductions = deductions;
         }
-        public int Id
+        public int Number
         {
-            get { return _id; }
+            get { return _number; }
         }
         public string Name
         {
@@ -86,14 +148,31 @@ namespace SalaryManagementSystem
         {
             return _salary - Withheld();
         }
+        public static double TotalSalary(Employee[] employees)
+        {
+            double totalSalary = 0;
+            foreach (Employee employee in employees)
+            {
+                totalSalary += employee.Salary;
+            }
+            return totalSalary;
+        }
         public static double TotalWithheld(Employee[] employees)
         {
             double totalWithheld = 0;
+            foreach (Employee employee in employees)
+            {
+                totalWithheld += employee.Withheld();
+            }
             return totalWithheld;
         }
         public static double TotalPaid(Employee[] employees)
         {
             double totalPaid = 0;
+            foreach (Employee employee in employees)
+            {
+                totalPaid += employee.Paid();
+            }
             return totalPaid;
         }
     }
