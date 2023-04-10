@@ -4,6 +4,22 @@ namespace sem2lab2
 {
     class Program
     {
+        /*
+         Test scenariouses
+        Test 1:
+        Input: 2; 1; Artem; 1000; 0,15; 2; Bogdan; 1200; 0,15
+        Output: Total amount salary: 2200 UAH;
+        Total amount witheld: 330 UAH;
+        Total amount paid: 1870 UAH;
+        Test 2: 
+        Input: 3; 1; Dmytro; 13000; 0,2; 2; Vasyliy; 12500; 0,18; 3; Genry; 14200; 0,22; 
+        Output: Total amount salary: 39700 UAH;
+        Total amount witheld: 7974 UAH;
+        Total amount paid: 31726 UAH;
+        Test 3:
+        Input: 2; 1; 200; 10000; fff;
+        Output: Invalid input;
+         */
         static void Main(string[] args)
         {
             int numOfEmployees = GetIntFromUserInput();
