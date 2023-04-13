@@ -1,4 +1,19 @@
 ﻿using System;
+/* Test scenariouses
+Test 1:
+Input: 2; 3; -2; 1; 4;
+Output: Sum of negative elements: -2;
+Product of elements with even indices: 0, -8;
+Number of zero elements: 0;
+Test 2: 
+Input: 3; 0; 2; 4; 1; 3; 2;
+Output: Sum of negative elements: 0;
+Product of elements with even indices: 0, 6, 0;
+Number of zero elements: 1;
+Test 3:
+Input: -2; 0,5; 1;
+Output: Error;
+*/
 public class Vector
 {
     public int[] Elements { get; set; }
