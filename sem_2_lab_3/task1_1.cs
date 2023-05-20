@@ -12,6 +12,7 @@ public class Deque<Item> : IEnumerable<Item>
         public Item value;
         public Node next;
         public Node prev;
+
         public Node(Item value)
         {
             this.value = value;
@@ -31,28 +32,68 @@ public class Deque<Item> : IEnumerable<Item>
 
     public void AddFirst(Item item)
     {
-        // add the item to the front
+        if (item == null)
+        {
+            throw new ArgumentException("Cannot add a null item into this deque!");
+        }
+        else
+        {
+            Node newNode = new Node(item);
+            newNode.prev = sentinel;
+            newNode.next = sentinel.next;
+            sentinel.next.prev = newNode;
+            sentinel.next = newNode;
+            size++;
+        }
     }
 
     public void AddLast(Item item)
     {
-        // add the item to the end
+        if (item == null)
+        {
+            throw new ArgumentException("Cannot add a null item into this deque!");
+        }
+        else
+        {
+            Node newNode = new Node(item);
+            newNode.next = sentinel;
+            newNode.prev = sentinel.prev;
+            sentinel.prev.next = newNode;
+            sentinel.prev = newNode;
+            size++;
+        }
     }
 
     public Item RemoveFirst()
     {
-        // remove and return the item from the front
-        Node firstNode = sentinel.next;
+        if (size == 0)
+        {
+            throw new InvalidOperationException("The deque is empty, nothing to remove.");
+        }
+        else
+        {
+            Node firstNode = sentinel.next;
+            sentinel.next = firstNode.next;
+            firstNode.next.prev = sentinel;
+            size--;
             return firstNode.value;
+        }
     }
 
     public Item RemoveLast()
     {
-        // remove and return the item from the end
-        Node lastNode = sentinel.prev;
-            
+        if (size == 0)
+        {
+            throw new InvalidOperationException("The deque is empty, nothing to remove.");
+        }
+        else
+        {
+            Node lastNode = sentinel.prev;
+            sentinel.prev = lastNode.prev;
+            lastNode.prev.next = sentinel;
+            size--;
             return lastNode.value;
-        
+        }
     }
 
     public IEnumerator<Item> GetEnumerator()
@@ -77,11 +118,21 @@ class Program
 {
     static void Main(string[] args)
     {
-        // unit testing (required)
-        /*
-         input: 11 23 42 1 3
-         RemoveFirst; RemoveLast
-         output: 23 42 1
-         */
+        Deque<int> deque = new Deque<int>();
+        deque.AddFirst(11);
+        deque.AddLast(0);
+        deque.AddLast(63);
+        deque.RemoveFirst();
+        deque.AddLast(5);
+        deque.RemoveLast();
+        deque.AddFirst(1);
+        deque.AddLast(2);
+        deque.AddLast(4);
+
+        foreach (int i in deque)
+        {
+            Console.Write(i + " ");
+        }
+        Console.WriteLine();
     }
 }
