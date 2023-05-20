@@ -23,25 +23,75 @@ public class Deque<Item> : IEnumerable<Item>
 
     public void AddFirst(Item item)
     {
-        // add the item to the front
+        if (item == null)
+        {
+            throw new ArgumentException("Cannot add a null item into this deque!");
+        }
+
+        if (size == array.Length)
+        {
+            ResizeArray();
+        }
+
+        head = (head - 1 + array.Length) % array.Length;
+        array[head] = item;
+        size++;
     }
 
     public void AddLast(Item item)
     {
-        // add the item to the end
+        if (item == null)
+        {
+            throw new ArgumentException("Cannot add a null item into this deque!");
+        }
+
+        if (size == array.Length)
+        {
+            ResizeArray();
+        }
+
+        array[tail] = item;
+        tail = (tail + 1) % array.Length;
+        size++;
     }
 
     public Item RemoveFirst()
     {
-        // remove and return the item from the front
+        if (size == 0)
+        {
+            throw new InvalidOperationException("The deque is empty, nothing to remove.");
+        }
+
         Item item = array[head];
+        array[head] = default(Item);
+        head = (head + 1) % array.Length;
+        size--;
+
+        if (size > 0 && size == array.Length / 4)
+        {
+            ResizeArray();
+        }
+
         return item;
     }
 
     public Item RemoveLast()
     {
-        // remove and return the item from the front
+        if (size == 0)
+        {
+            throw new InvalidOperationException("The deque is empty, nothing to remove.");
+        }
+
+        tail = (tail - 1 + array.Length) % array.Length;
         Item item = array[tail];
+        array[tail] = default(Item);
+        size--;
+
+        if (size > 0 && size == array.Length / 4)
+        {
+            ResizeArray();
+        }
+
         return item;
     }
 
@@ -78,11 +128,22 @@ class Program
 {
     static void Main(string[] args)
     {
-        // unit testing (required)
-        /*
-         input: 11 23 42 1 3
-         RemoveFirst; RemoveLast
-         output: 23 42 1
-         */
+        Deque<int> deque = new Deque<int>();
+        deque.AddFirst(1);
+        deque.AddLast(0);
+        deque.AddLast(8);
+        deque.AddLast(9);
+        deque.RemoveFirst();
+        deque.AddLast(54);
+        deque.RemoveLast();
+        deque.AddFirst(10);
+        deque.AddLast(2);
+        deque.AddLast(4);
+
+        foreach (int i in deque)
+        {
+            Console.Write(i + " ");
+        }
+        Console.WriteLine();
     }
 }
