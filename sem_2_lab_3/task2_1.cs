@@ -12,7 +12,10 @@ public class RandomizedQueue<Item> : IEnumerable<Item>
 
     public RandomizedQueue()
     {
-        // construct an empty randomized queue
+        hiddenArray = new Item[initialArraySize];
+        size = 0;
+        pointer = 0;
+        random = new Random();
     }
 
     public bool IsEmpty => size == 0;
@@ -29,7 +32,9 @@ public class RandomizedQueue<Item> : IEnumerable<Item>
 
     private void Resize(int newSize)
     {
-        // add the item
+        Item[] newArray = new Item[newSize];
+        Array.Copy(hiddenArray, newArray, size);
+        hiddenArray = newArray;
     }
 
     public Item Dequeue()
@@ -81,13 +86,26 @@ public class RandomizedQueue<Item> : IEnumerable<Item>
 
     private void Iterator(Item[] array)
     {
-        // return an independent iterator over items in random order
+        for (int i = 0; i < size; i++)
+        {
+            int randomIndex = random.Next(i, size);
+            Item temp = array[i];
+            array[i] = array[randomIndex];
+            array[randomIndex] = temp;
+        }
     }
 }
 class Program
 {
     static void Main(string[] args)
     {
-        // unit testing (required)
+        RandomizedQueue<int> newQueue = new RandomizedQueue<int>();
+        for (int i = 0; i < 20; i++)
+            newQueue.Enqueue(i);
+        IEnumerator<int> newIterator = newQueue.GetEnumerator();
+
+        while (newIterator.MoveNext())
+            Console.WriteLine(newIterator.Current);
     }
 }
+
