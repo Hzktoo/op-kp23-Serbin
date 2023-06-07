@@ -1,5 +1,25 @@
 ﻿using System.Collections.Generic;
-
+/*
+Test scenariouses:
+Test 1
+Input: cherry;
+Output: Ok;
+Test 2
+Input: case;
+Output: WrongSpelling;
+Test 3
+Input: people;
+Output: WrongSpelling;
+Test 4
+Input: cherry;
+Output: Ok;
+Test 5
+Input: yes
+Output: WrongSpelling;
+Test 6
+Input: mobile;
+Output: WrongSpelling.
+ */
 public class HashTable<KItem, VItem>
 {
     private const int DefaultCapacity = 10;
